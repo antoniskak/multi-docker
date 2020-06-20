@@ -9,3 +9,7 @@ Images syncing the github repo with Travis CI and setting up the multi-container
 
 ### Application Workflow Diagram
 ![Application Architecture](https://user-images.githubusercontent.com/36962615/85206323-284e5d00-b319-11ea-90e8-1c043c25cfc4.png)
+
+## Routing with Nginx
+Nginx will be watching for incoming requests and routing them to the appropriate backend server (servers that Nginx proxies requests to are known as upstream servers) depending on a set of routing rules.
+![Nginx Routing](https://user-images.githubusercontent.com/36962615/85209563-ef21e700-b330-11ea-8bfa-8538ae02cd7e.png)
