@@ -13,3 +13,6 @@ Images syncing the github repo with Travis CI and setting up the multi-container
 ## Routing with Nginx
 Nginx will be watching for incoming requests and routing them to the appropriate backend server (servers that Nginx proxies requests to are known as upstream servers) depending on a set of routing rules.
 ![Nginx Routing](https://user-images.githubusercontent.com/36962615/85209563-ef21e700-b330-11ea-8bfa-8538ae02cd7e.png)
+
+## Development Build
+**docker-compose.yml** configures the dev environment and ```docker-compose up``` starts the app on  http://localhost:3050/.
