@@ -16,3 +16,15 @@ Nginx will be watching for incoming requests and routing them to the appropriate
 
 ## Development Build
 **docker-compose.yml** configures the dev environment and ```docker-compose up``` starts the app on  http://localhost:3050/.
+
+### Production:
+![Production Diagram](https://user-images.githubusercontent.com/36962615/85331527-3a253100-b4ce-11ea-8203-43b393deb357.png)
+
+### Production Deployment Flow:
+Travis CI will automatically pull the repo from github. Every new push will trigger a build of a test image from travis, which will test the code and then a build of the production images. The test image is discarded after testing.
+
+Production images are then pushed to Docker Hub by Travis CI.
+
+Travis CI notifies Elastic Beanstalk about the project deployment.
+
+Elastic Beanstalk pulls those images and builds the containers for the new deployment out of them.
