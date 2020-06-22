@@ -1,0 +1,29 @@
+language: generic
+
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t akakafonis/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    # test command should force Jest to run in CI-mode and tests to be run once instead of launching the watcher
+    - docker run -e CI=true akakafonis/react-test npm run test
+
+after_success:
+    - docker build -t akakafonis/multi-client ./client
+    - docker build -t akakafonis/multi-nginx ./nginx
+    - docker build -t akakafonis/multi-server ./server
+    - docker build -t akakafonis/multi-worker ./worker
+
+    # Log in to docker CLI (username and password should be stored in the repository settings 
+    # environment variables, which may be set up through the repository settings web page or
+    # via the Travis CLI)
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+    # Push the built images to docker hub
+    - docker push akakafonis/multi-client
+    - docker push akakafonis/multi-nginx
+    - docker push akakafonis/multi-server
+    - docker push akakafonis/multi-worker
