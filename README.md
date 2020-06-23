@@ -33,6 +33,7 @@ Elastic Beanstalk pulls those images and builds the containers for the new deplo
 ![Producation Overall](https://user-images.githubusercontent.com/36962615/85476145-85634080-b5af-11ea-88a3-8a3c23846309.png)
 
 For this project we are using the Managed Data Service Providers **AWS Elastic Cache** and **AWS Relational Database(RDS)** to host the copies of Redis and Postgres which offer the following advantages:
+
 **AWS Elastic Cache**
 1. Automatic creation and configuration of Redis instances
 2. Scalability
