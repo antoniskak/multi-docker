@@ -28,3 +28,24 @@ Production images are then pushed to Docker Hub by Travis CI.
 Travis CI notifies Elastic Beanstalk about the project deployment.
 
 Elastic Beanstalk pulls those images and builds the containers for the new deployment out of them.
+
+## Production Overall Architecture
+![Producation Overall](https://user-images.githubusercontent.com/36962615/85476145-85634080-b5af-11ea-88a3-8a3c23846309.png)
+
+For this project we are using the Managed Data Service Providers **AWS Elastic Cache** and **AWS Relational Database(RDS)** to host the copies of Redis and Postgres which offer the following advantages:
+**AWS Elastic Cache**
+1. Automatic creation and configuration of Redis instances
+2. Scalability
+3. Offers logging and maintenance
+4. Security
+5. Less dependency to Elastic Beanstalk (easier migration)
+
+**AWS Relational Database(RDS)**
+1. Automatic creation and configuration of Postgres instances
+2. Scalability
+3. Offers logging and maintenance
+4. Security
+5. Less dependency to Elastic Beanstalk (easier migration)
+6. Makes automatic backups of our database and rollbacks are super easy
+
+In order to enable communication between the Elastic Beanstalk and the external services (RDS and EC) we simply create a common Security Group for the instances inside our default Virtual Private Cloud (VPC) allowing any traffic among them.
