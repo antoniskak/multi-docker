@@ -34,12 +34,14 @@ Elastic Beanstalk pulls those images and builds the containers for the new deplo
 
 For this project we are using the Managed Data Service Providers **AWS Elastic Cache** and **AWS Relational Database(RDS)** to host the copies of Redis and Postgres which offer the following advantages:
 
-**AWS Elastic Cache**
+**AWS ElastiCache**
 1. Automatic creation and configuration of Redis instances
 2. Scalability
 3. Offers logging and maintenance
 4. Security
 5. Less dependency to Elastic Beanstalk (easier migration)
+
+In order to create an AWS ElastiCache Cluster Instance for Redis we sign in to the AWS console and select **Services -> ElastiCache -> Redis -> Create** and continue with the appropriate configuration. We select a node type "cache.t2.micro" for this app and 0 Number of replicas.
 
 **AWS Relational Database(RDS)**
 1. Automatic creation and configuration of Postgres instances
@@ -49,4 +51,54 @@ For this project we are using the Managed Data Service Providers **AWS Elastic C
 5. Less dependency to Elastic Beanstalk (easier migration)
 6. Makes automatic backups of our database and rollbacks are super easy
 
+In order to create an AWS RDS Database we log in to the AWS console and select **Services -> RDS -> Databases -> Create Database -> PostgreSQL** and continue with the appropriate configuration.
+
 In order to enable communication between the Elastic Beanstalk and the external services (RDS and EC) we simply create a common Security Group for the instances inside our default Virtual Private Cloud (VPC) allowing any traffic among them.
+
+We then add the Environment Variables to the Elastic Beanstalk Configuration by selecting **Environment -> Configuration -> Software -> Edit**.
+**Environment properties**
+<table>
+  <tr>
+    <td>REDIS_HOST</td>
+    <td>[Redis Primary Endpoint] - removing the ":port" part</td>
+  </tr>
+    <tr>
+    <td>REDIS_PORT</td>
+    <td>6379</td>
+  </tr>
+    <tr>
+    <td>PGUSER</td>
+    <td>[Master Username]</td>
+  </tr>
+    <tr>
+    <td>PGPASSWORD</td>
+    <td>[Master password]</td>
+  </tr>
+    <tr>
+    <td>PGHOST</td>
+    <td>[DB Endpoint]</td>
+  </tr>
+    <tr>
+    <td>PGDATABASE</td>
+    <td>[DB cluster identifier]</td>
+  </tr>
+  <tr>
+    <td>PGPORT</td>
+    <td>5432</td>
+  </tr>
+</table>
+as per our services' configuration.
+
+
+### Deployment:
+On **AWS Dashboard -> Services -> IAM -> Users** we create a new user with deploy access to Elastic Beanstalk (Programmatic Access and Attach existing Policies for Permissions). Then we set the **Access key ID** and **Secret access key** as Encrypted Environment Variables on Travis CI
+<table>
+  <tr>
+    <td>AWS_ACCESS_KEY</td>
+    <td>[Access key ID]</td>
+  </tr>
+    <tr>
+    <td>AWS_SECRET_KEY</td>
+    <td>[Secret access key]</td>
+  </tr>
+ </table>
