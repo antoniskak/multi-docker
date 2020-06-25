@@ -29,6 +29,7 @@ after_success:
     - docker push akakafonis/multi-worker
 
 deploy:
+    edge: true # opt in to dpl v2
     provider: elasticbeanstalk
     region: eu-west-2
     app: multi-docker
