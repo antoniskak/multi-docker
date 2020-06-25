@@ -91,7 +91,7 @@ as per our services' configuration.
 
 
 ### Deployment:
-On **AWS Dashboard -> Services -> IAM -> Users** we create a new user with deploy access to Elastic Beanstalk (Programmatic Access and Attach existing Policies for Permissions). Then we set the **Access key ID** and **Secret access key** as Encrypted Environment Variables on Travis CI
+On **AWS Dashboard -> Services -> IAM -> Users** we create a new user (e.g. multi-docker-deployer) with deploy access to Elastic Beanstalk **Programmatic Access -> Attach existing Policies for Permissions -> Filter (Search) for "AWSElasticBeanstalkFullAcces" -> Select Policy**. Then we set the **Access key ID** and **Secret access key** as Encrypted Environment Variables on Travis CI.
 <table>
   <tr>
     <td>AWS_ACCESS_KEY</td>
