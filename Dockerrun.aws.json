@@ -1,5 +1,5 @@
 {
-    "AWSEBDockerRunVersion": 2,
+    "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
             "name": "client",
@@ -9,7 +9,7 @@
             "memory": 128
         },
         {
-            "name": "api",
+            "name": "server",
             "image": "akakafonis/multi-server",
             "hostname": "api",
             "essential": false,
